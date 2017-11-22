@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +9,29 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="hola"
+        android:layout_height="wrap_content"
+        android:text="Según la enseñanza de Juan Pablo II, la familia, ya como realidad sencillamente  natural, encuentra su fuente y su modelo en la Trinidad divina. “La imagen divina se realiza no sólo en el individuo, sino también en aquella singular comunión de personas que está formada por un hombre y una mujer, unidos hasta tal punto en el amor que se convierten en una sola carne. En efecto, está escrito: “a imagen de Dios los creó; macho y hembra los creó” (Gn 127) (Mensaje para la jornada de la paz 1994, n.1). “El nosotros divino constituye el modelo eterno del nosotros humano; de aquel nosotros que está formado en primer lugar por el hombre y la mujer, creados a imagen y semejanza de Dios” (Juan Pablo II, Gravissimam Sane, 6). Cada comunión de personas fundada en el amor es, pues, de alguna manera un reflejo de Dios amor, uno y trino. Pero la familia lo es de forma específica. “El hecho de que el ser humano, creado como hombre y mujer, sea imagen de Dios, no significa solamente que cada uno de ellos individualmente es semejante a Dios, en cuanto ser racional y libre. "
+
         />
 
-</android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/id_fb_cs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="12dp"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:src="@drawable/icons8_close_sign_40"
+            />
+
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

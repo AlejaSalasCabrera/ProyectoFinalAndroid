@@ -1,6 +1,8 @@
 package com.i044114_i012114.proyectofinalandroid.Views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,11 +17,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.i044114_i012114.proyectofinalandroid.Adapters.UserAdapter;
 import com.i044114_i012114.proyectofinalandroid.Helpers.SqliteHelper;
+import com.i044114_i012114.proyectofinalandroid.LoginActivity;
 import com.i044114_i012114.proyectofinalandroid.Models.Users;
 import com.i044114_i012114.proyectofinalandroid.R;
 import com.i044114_i012114.proyectofinalandroid.Utilities.Constants;
@@ -36,7 +40,12 @@ public class LoginUserActivity extends AppCompatActivity {
 
     private CheckBox opcionMostrar;
     private EditText Contrasena;
+    RadioButton radioButton;
 
+    Boolean isActivateRadioButton;
+
+    private static final String STRING_PREFERENCES ="proyectofinalandroid.Helpers.SqliteHelper";
+    private static final String PREFERENCES_ESTADO_BUTTON_SESION ="estado.login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,26 @@ public class LoginUserActivity extends AppCompatActivity {
 
         editTextUser = (EditText) findViewById(R.id.id_et_users);
         editTextPassword = (EditText) findViewById(R.id.id_et_password);
+
+        radioButton= (RadioButton) findViewById(R.id.id_rb_s);
+        isActivateRadioButton = radioButton.isChecked();
+
+        if(getState()){
+            Intent intent = new Intent(this, ProductListActivity.class);
+            this.startActivity(intent);
+            finish();
+
+        }
+
+        radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isActivateRadioButton){
+                    radioButton.setChecked(false);
+                }
+                isActivateRadioButton = radioButton.isChecked();
+            }
+        });
 
         opcionMostrar = (CheckBox)findViewById(R.id.opcion_mostrar);
         Contrasena = (EditText)findViewById(R.id.id_et_password);
@@ -74,6 +103,8 @@ public class LoginUserActivity extends AppCompatActivity {
                 //capturamos los valores del cursos y lo almacenamos en variable
                 String usua=fila.getString(0);
                 String pass=fila.getString(1);
+
+                saveState();
                 //preguntamos si los datos ingresados son iguales
                 if (usuario.equals(usua)&&contrasena.equals(pass)) {
                     //si son iguales entonces vamos a otra ventana
@@ -81,6 +112,7 @@ public class LoginUserActivity extends AppCompatActivity {
                     Intent ven = new Intent(this, ProductListActivity.class);
                     startActivity(ven);
                     Toast.makeText(this, "Bienvenido a MediFarmBlue", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }else {
                 //limpiamos las las cajas de texto
@@ -109,6 +141,22 @@ public class LoginUserActivity extends AppCompatActivity {
         Contrasena.setSelection(cursor);
     }
 
+    public void saveState(){
+        SharedPreferences sharedPreferences = getSharedPreferences(STRING_PREFERENCES,  MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(PREFERENCES_ESTADO_BUTTON_SESION,radioButton.isChecked()).apply();
+
+    }
+
+    public boolean getState(){
+        SharedPreferences sharedPreferences = getSharedPreferences(STRING_PREFERENCES,  MODE_PRIVATE);
+        return sharedPreferences.getBoolean(PREFERENCES_ESTADO_BUTTON_SESION,false);
+
+    }
 
 
+    public static void changeState(Context c, boolean  b){
+        SharedPreferences sharedPreferences = c.getSharedPreferences(STRING_PREFERENCES,  MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(PREFERENCES_ESTADO_BUTTON_SESION,b).apply();
+
+    }
       }
